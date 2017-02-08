@@ -139,10 +139,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="classes.cpp" />
-    <ClCompile Include="roguelike0.1.cpp" />
+    <ClCompile Include="roguelike0.2.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="classes.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

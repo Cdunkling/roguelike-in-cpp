@@ -1,55 +1,42 @@
-#include "stdafx.h"
-#include <conio.h>
-#include<iostream>
-#include<fstream>
-#include<string>
-#include <limits>
-#include <array>
+#include "classes.h"
 using namespace std;
 
-class player
-{
-private:
-	string name;
-	int x, y;
-public:
-	void setname(string newname)
+    void player::setname(string newname)
 	{
 		name = newname;
 	}
-	string getname()
+	string player::getname()
 	{
 		return name;
 	}
-	void setpos(array<int, 2> pos)
+	void player::setpos(array<int, 2> pos)
 	{
 		x = pos[0];
 		y = pos[1];
 	}
-	array<int, 2> getpos()
+	array<int, 2> player::getpos()
 	{
 		array<int, 2> pos{x,y};
 		return pos;
 	}
-	array<int, 2> left(array<int, 2> pos)
+	array<int, 2> player::left(array<int, 2> pos)
 	{
 		pos[1] -= 1;
 		return pos;
 	}
-	array<int, 2> right(array<int, 2> pos)
+	array<int, 2>  player:: right(array<int, 2> pos)
 	{
 		pos[1] += 1;
 		return pos;
 	}
-	array<int, 2> up(array<int, 2> pos)
+	array<int, 2> player::up(array<int, 2> pos)
 	{
-		pos[0] -= 1;
-		return pos;
-	}
-	array<int, 2> down(array<int, 2> pos)
-	{
-		pos[0] += 1;
-		return pos;
-	}
 
-};
+		pos = { pos[0] -1,pos[1]+1};
+		return pos;
+	}
+	array<int, 2>player::down(array<int, 2> pos)
+	{
+		pos = { pos[0] + 1,pos[1]-1};
+		return pos;
+	}

@@ -1,4 +1,5 @@
-﻿  roguelike0.1.cpp
-c:\users\chris\documents\visual studio 2017\projects\cpprougelike\roguelike 0.2\roguelike 0.2\roguelike0.1.cpp(60): warning C4101: 'y': unreferenced local variable
-c:\users\chris\documents\visual studio 2017\projects\cpprougelike\roguelike 0.2\roguelike 0.2\roguelike0.1.cpp(59): warning C4101: 'x': unreferenced local variable
-LINK : fatal error LNK1168: cannot open C:\Users\Chris\Documents\Visual Studio 2017\Projects\cpprougelike\roguelike 0.2\Debug\roguelike 0.2.exe for writing
+﻿  roguelike0.2.cpp
+c:\users\chris\documents\visual studio 2017\projects\cpprougelike\roguelike 0.2\roguelike 0.2\roguelike0.2.cpp(68): warning C4101: 'y': unreferenced local variable
+c:\users\chris\documents\visual studio 2017\projects\cpprougelike\roguelike 0.2\roguelike 0.2\roguelike0.2.cpp(67): warning C4101: 'x': unreferenced local variable
+  roguelike 0.2.vcxproj -> C:\Users\Chris\Documents\Visual Studio 2017\Projects\cpprougelike\roguelike 0.2\Debug\roguelike 0.2.exe
+  roguelike 0.2.vcxproj -> C:\Users\Chris\Documents\Visual Studio 2017\Projects\cpprougelike\roguelike 0.2\Debug\roguelike 0.2.pdb (Partial PDB)
