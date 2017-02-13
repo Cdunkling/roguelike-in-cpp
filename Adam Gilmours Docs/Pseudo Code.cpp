@@ -1,3 +1,4 @@
+
 // INFORMATION SOURCED FROM http://web.mit.edu/eranki/www/tutorials/search/
 
 
@@ -39,3 +40,5 @@ while the open list is not empty
     end
     push q on the closed list
 end*/
+
+/* For anyone that finds this a bit confusing, like I did, it is almost exactly how Dijkstra's Algorithm works
