@@ -41,4 +41,4 @@ while the open list is not empty
     push q on the closed list
 end*/
 
-/* For anyone that finds this a bit confusing, like I did, it is almost exactly how Dijkstra's Algorithm works
+// For anyone that finds this a bit confusing, like I did, it is almost exactly how Dijkstra's Algorithm works
