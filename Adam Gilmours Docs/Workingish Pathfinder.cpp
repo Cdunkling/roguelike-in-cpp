@@ -1,0 +1,228 @@
+#include <iostream>
+#include <iomanip>
+#include <queue>
+#include <string>
+#include <math.h>
+#include <Windows.h>
+using namespace std;
+
+//assigns x and y of grid.
+const int n = 20;
+const int m = 20;
+static char map[n][m];
+static int closed_nodes_map[n][m];
+static int open_nodes_map[n][m];
+static int dir_map[n][m];
+//direction that the search algorithm can go in, 4 means up, down, left and right.
+const int dir = 4;
+//these lists allow the algorithm to check the nodes around it.
+static int dx[dir] = { 1,0,-1,0 };
+static int dy[dir] = { 0,1,0,-1 };
+
+//create the node and assign it specific values. 
+class node
+{
+	int xPos;
+	int yPos;
+	int cost;
+	int priority;
+
+public:
+	node(int xp, int yp, int d, int p)
+	{
+		xPos = xp; yPos = yp; cost = d; priority = p;
+	}
+
+	int getxPos() const { return xPos; }
+	int getyPos() const { return yPos; }
+	int getcost() const { return cost; }
+	int getpriority() const { return priority; }
+
+	void updatePriority(const int & xDest, const int & yDest)
+	{
+		priority = cost * 10;
+	}
+
+	void nextCost(const int & i)
+	{
+		cost += 10;
+	}
+
+};
+//Determin priority in queue
+bool operator<(const node & a, const node & b)
+{
+	return a.getpriority() > b.getpriority();
+}
+
+//Dijkstras Algorithm
+//Return direction of nodes.
+string pathFind(const int & xStart, const int & yStart, const int & xFinish, const int & yFinish)
+{
+	//create list of open nodes, assigning their values.  
+	static priority_queue<node> pq[2];
+	//pq index
+	static int pqi;
+	static node* n0;
+	static node* m0;
+	static int i, j, x, y, xdx, ydy;
+	static char c;
+	pqi = 0;
+
+	for (y = 0; y < m; y++)
+	{
+		for (x = 0; x < n; x++)
+		{
+			closed_nodes_map[n][m] = 0;
+			open_nodes_map[n][m] = 0;
+		}
+	}
+	//create first node and then put it into queue
+	n0 = new node(xStart, yStart, 0, 0);
+	n0->updatePriority(xFinish, yFinish);
+	pq[pqi].push(*n0);
+	open_nodes_map[x][y] = n0->getpriority();
+
+	//while queue is not empty, run this
+	//The way this works is the queue will never be empty unless it has searched through all the nodes
+	//and it finds no path
+	//if it does find a path it will return the list. 
+	while (!pq[pqi].empty())
+	{
+		n0 = new node(pq[pqi].top().getxPos(), pq[pqi].top().getyPos(),
+			pq[pqi].top().getcost(), pq[pqi].top().getpriority());
+		x = n0->getxPos();
+		y = n0->getyPos();
+
+		pq[pqi].pop();
+		open_nodes_map[x][y] = 0;
+		closed_nodes_map[x][y] = 1;
+		//Check if the new node matches the goal node. 
+		if (x == xFinish && y == yFinish)
+		{
+			// generate the path from finish to start
+			// by following the directions
+			string path = "";
+			while (!(x == xStart && y == yStart))
+			{
+				j = dir_map[x][y];
+				c = '0' + (j + dir / 2) % dir;
+				path = c + path;
+				x += dx[j];
+				y += dy[j];
+			}
+			delete n0;
+			while (!pq[pqi].empty()) pq[pqi].pop();
+			return path;
+		}
+		//generate new child node in all possible directs(4)
+		for (i = 0; i<dir; i++)
+		{
+			xdx = x + dx[i]; ydy = y + dy[i];
+
+			if (!(xdx<0 || xdx>n - 1 || ydy<0 || ydy>m - 1 || map[xdx][ydy] == 1
+				|| closed_nodes_map[xdx][ydy] == 1))
+			{
+				// generate a child node
+				m0 = new node(xdx, ydy, n0->getcost(),
+					n0->getpriority());
+				m0->nextCost(i);
+				m0->updatePriority(xFinish, yFinish);
+
+				// if it is not in the open list then add into that
+				if (open_nodes_map[xdx][ydy] == 0)
+				{
+					open_nodes_map[xdx][ydy] = m0->getpriority();
+					pq[pqi].push(*m0);
+					// mark its parent node direction
+					dir_map[xdx][ydy] = (i + dir / 2) % dir;
+				}
+				else if (open_nodes_map[xdx][ydy]>m0->getpriority())
+				{
+					// update the priority info
+					open_nodes_map[xdx][ydy] = m0->getpriority();
+					// update the parent direction info
+					dir_map[xdx][ydy] = (i + dir / 2) % dir;
+
+					// replace the node
+					// by emptying one pq to the other one
+					// except the node to be replaced will be ignored
+					// and the new node will be pushed in instead
+					while (!(pq[pqi].top().getxPos() == xdx &&
+						pq[pqi].top().getyPos() == ydy))
+					{
+						pq[1 - pqi].push(pq[pqi].top());
+						pq[pqi].pop();
+					}
+					pq[pqi].pop(); // remove the wanted node
+
+								   // empty the larger size pq to the smaller one
+					if (pq[pqi].size()>pq[1 - pqi].size()) pqi = 1 - pqi;
+					while (!pq[pqi].empty())
+					{
+						pq[1 - pqi].push(pq[pqi].top());
+						pq[pqi].pop();
+					}
+					pqi = 1 - pqi;
+					pq[pqi].push(*m0); // add the better node instead
+				}
+				else delete m0; // garbage collection
+			}
+		}
+		delete n0; // garbage collection
+	}
+	return ""; // no route found
+}
+
+int main()
+{
+	int startx = 0;
+	int starty = 0;
+	int endx = 19;
+	int endy = 15;
+	string route = pathFind(startx, starty, endx, endy);
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+		{
+			map[i][j] = '.';
+			map[startx][startx] = 'S';
+			map[endx][endx] = 'E';
+		}
+	}
+
+	for (int i = 5; i < 6; i++)
+	{
+		for (int j = 5; j < 14; j++)
+			map[j][i] = 1;
+	}
+
+	if (route.length() > 0)
+	{
+		int j; char c;
+
+		for (int i = 0; i < route.length(); i++)
+		{
+			c = route.at(i);
+			j = atoi(&c);
+			system("cls");
+			startx = startx + dx[j];
+			starty = starty + dy[j];
+			for (int i = 0; i < n; i++)
+			{
+				for (int j = 0; j < m; j++)
+				{
+					map[i][j] = '.';
+					map[startx][starty] = 'S';
+					map[endx][endy] = 'E';
+					cout << map[i][j];
+				}
+				cout << endl;
+			}
+
+			Sleep(100);
+		}
+	}
+	getchar();
+	return 0;
+}
