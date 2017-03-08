@@ -1,3 +1,8 @@
+//Psuedo Code found at https://en.wikipedia.org/wiki/Dijkstra's_algorithm#Using_a_priority_queue
+//
+//"http://code.activestate.com/recipes/577457-a-star-shortest-path-algorithm/"
+
+
 #include <iostream>
 #include <queue>
 #include <string>
