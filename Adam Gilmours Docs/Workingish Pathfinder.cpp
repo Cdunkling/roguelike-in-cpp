@@ -1,8 +1,6 @@
 #include <iostream>
-#include <iomanip>
 #include <queue>
 #include <string>
-#include <math.h>
 #include <Windows.h>
 using namespace std;
 
@@ -56,12 +54,11 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 	//create list of open nodes, assigning their values.  
 	static priority_queue<node> pq[2];
 	//pq index
-	static int pqi;
+	static int pqi = 0;
 	static node* n0;
 	static node* m0;
 	static int i, j, x, y, xdx, ydy;
 	static char c;
-	pqi = 0;
 
 	for (y = 0; y < m; y++)
 	{
@@ -79,14 +76,18 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 	//while queue is not empty, run this
 	//The way this works is the queue will never be empty unless it has searched through all the nodes
 	//and it finds no path
-	//if it does find a path it will return the list. 
+	//if it does find a path it will return the list.
+	//this is the actual algorithm that checks the adjacent nodes and updates their cost
 	while (!pq[pqi].empty())
 	{
+		//create a new node
 		n0 = new node(pq[pqi].top().getxPos(), pq[pqi].top().getyPos(),
 			pq[pqi].top().getcost());
+		//get their x and y position.
 		x = n0->getxPos();
 		y = n0->getyPos();
 
+		//remove that node from the queue. 
 		pq[pqi].pop();
 		open_nodes_map[x][y] = 0;
 		closed_nodes_map[x][y] = 1;
@@ -105,14 +106,15 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 				y += dy[j];
 			}
 			while (!pq[pqi].empty()) pq[pqi].pop();
+			//return the path that the algorithm took so that we can display it on a graph. 
 			return path;
 		}
-		//generate new child node in all possible directs(4)
+		//generate new child node in all possible directions
 		for (i = 0; i<dir; i++)
 		{
 			xdx = x + dx[i]; ydy = y + dy[i];
 
-			if (!(xdx<0 || xdx>n - 1 || ydy<0 || ydy>m - 1 || map[xdx][ydy] == 1
+			if (!(xdx<0 || xdx>n - 1 || ydy<0 || ydy>m - 1
 				|| closed_nodes_map[xdx][ydy] == 1))
 			{
 				// generate a child node
@@ -169,21 +171,6 @@ int main()
 	int endx = 19;
 	int endy = 15;
 	string route = pathFind(startx, starty, endx, endy);
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < m; j++)
-		{
-			map[i][j] = '.';
-			map[startx][startx] = 'S';
-			map[endx][endx] = 'E';
-		}
-	}
-
-	for (int i = 5; i < 6; i++)
-	{
-		for (int j = 5; j < 14; j++)
-			map[j][i] = 1;
-	}
 
 	if (route.length() > 0)
 	{
