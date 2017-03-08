@@ -25,23 +25,17 @@ class node
 	int xPos;
 	int yPos;
 	int cost;
-	int priority;
 
 public:
-	node(int xp, int yp, int d, int p)
+	node(int xp, int yp, int d)
 	{
-		xPos = xp; yPos = yp; cost = d; priority = p;
+		xPos = xp; yPos = yp; cost = d;
 	}
 
 	int getxPos() const { return xPos; }
 	int getyPos() const { return yPos; }
 	int getcost() const { return cost; }
-	int getpriority() const { return priority; }
 
-	void updatePriority(const int & xDest, const int & yDest)
-	{
-		priority = cost * 10;
-	}
 
 	void nextCost(const int & i)
 	{
@@ -52,7 +46,7 @@ public:
 //Determin priority in queue
 bool operator<(const node & a, const node & b)
 {
-	return a.getpriority() > b.getpriority();
+	return a.getcost() > b.getcost();
 }
 
 //Dijkstras Algorithm
@@ -78,10 +72,9 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 		}
 	}
 	//create first node and then put it into queue
-	n0 = new node(xStart, yStart, 0, 0);
-	n0->updatePriority(xFinish, yFinish);
+	n0 = new node(xStart, yStart, 0);
 	pq[pqi].push(*n0);
-	open_nodes_map[x][y] = n0->getpriority();
+	open_nodes_map[x][y] = n0->getcost();
 
 	//while queue is not empty, run this
 	//The way this works is the queue will never be empty unless it has searched through all the nodes
@@ -90,7 +83,7 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 	while (!pq[pqi].empty())
 	{
 		n0 = new node(pq[pqi].top().getxPos(), pq[pqi].top().getyPos(),
-			pq[pqi].top().getcost(), pq[pqi].top().getpriority());
+			pq[pqi].top().getcost());
 		x = n0->getxPos();
 		y = n0->getyPos();
 
@@ -111,7 +104,6 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 				x += dx[j];
 				y += dy[j];
 			}
-			delete n0;
 			while (!pq[pqi].empty()) pq[pqi].pop();
 			return path;
 		}
@@ -124,23 +116,21 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 				|| closed_nodes_map[xdx][ydy] == 1))
 			{
 				// generate a child node
-				m0 = new node(xdx, ydy, n0->getcost(),
-					n0->getpriority());
+				m0 = new node(xdx, ydy, n0->getcost());
 				m0->nextCost(i);
-				m0->updatePriority(xFinish, yFinish);
 
 				// if it is not in the open list then add into that
 				if (open_nodes_map[xdx][ydy] == 0)
 				{
-					open_nodes_map[xdx][ydy] = m0->getpriority();
+					open_nodes_map[xdx][ydy] = m0->getcost();
 					pq[pqi].push(*m0);
 					// mark its parent node direction
 					dir_map[xdx][ydy] = (i + dir / 2) % dir;
 				}
-				else if (open_nodes_map[xdx][ydy]>m0->getpriority())
+				else if (open_nodes_map[xdx][ydy]>m0->getcost())
 				{
 					// update the priority info
-					open_nodes_map[xdx][ydy] = m0->getpriority();
+					open_nodes_map[xdx][ydy] = m0->getcost();
 					// update the parent direction info
 					dir_map[xdx][ydy] = (i + dir / 2) % dir;
 
@@ -166,10 +156,8 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 					pqi = 1 - pqi;
 					pq[pqi].push(*m0); // add the better node instead
 				}
-				else delete m0; // garbage collection
 			}
 		}
-		delete n0; // garbage collection
 	}
 	return ""; // no route found
 }
