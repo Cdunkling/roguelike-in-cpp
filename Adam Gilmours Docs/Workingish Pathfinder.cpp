@@ -1,13 +1,15 @@
 //Psuedo Code found at https://en.wikipedia.org/wiki/Dijkstra's_algorithm#Using_a_priority_queue
 //
 //"http://code.activestate.com/recipes/577457-a-star-shortest-path-algorithm/"
-
+#pragma once
 
 #include <iostream>
 #include <queue>
 #include <string>
 #include <Windows.h>
+#include <vector>
 using namespace std;
+
 
 //assigns x and y of grid.
 const int n = 20;
@@ -22,7 +24,7 @@ const int dir = 4;
 static int dx[dir] = { 1,0,-1,0 };
 static int dy[dir] = { 0,1,0,-1 };
 
-//create the node and assign it specific values. 
+//create the node and assign it specific values.
 class node
 {
 	int xPos;
@@ -56,7 +58,7 @@ bool operator<(const node & a, const node & b)
 //Return direction of nodes.
 string pathFind(const int & xStart, const int & yStart, const int & xFinish, const int & yFinish)
 {
-	//create list of open nodes, assigning their values.  
+	//create list of open nodes, assigning their values.
 	static priority_queue<node> pq[2];
 	//pq index
 	static int pqi = 0;
@@ -92,11 +94,11 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 		x = n0->getxPos();
 		y = n0->getyPos();
 
-		//remove that node from the queue. 
+		//remove that node from the queue.
 		pq[pqi].pop();
 		open_nodes_map[x][y] = 0;
 		closed_nodes_map[x][y] = 1;
-		//Check if the new node matches the goal node. 
+		//Check if the new node matches the goal node.
 		if (x == xFinish && y == yFinish)
 		{
 			// generate the path from finish to start
@@ -111,7 +113,7 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 				y += dy[j];
 			}
 			while (!pq[pqi].empty()) pq[pqi].pop();
-			//return the path that the algorithm took so that we can display it on a graph. 
+			//return the path that the algorithm took so that we can display it on a graph.
 			return path;
 		}
 		//generate new child node in all possible directions
@@ -119,7 +121,7 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 		{
 			xdx = x + dx[i]; ydy = y + dy[i];
 
-			if (!(xdx<0 || xdx>n - 1 || ydy<0 || ydy>m - 1
+			if (!(xdx<0 || xdx>n - 1 || ydy<0 || ydy>m - 1 || map[xdx][ydy] == 1
 				|| closed_nodes_map[xdx][ydy] == 1))
 			{
 				// generate a child node
@@ -167,42 +169,4 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 		}
 	}
 	return ""; // no route found
-}
-
-int main()
-{
-	int startx = 0;
-	int starty = 0;
-	int endx = 19;
-	int endy = 15;
-	string route = pathFind(startx, starty, endx, endy);
-
-	if (route.length() > 0)
-	{
-		int j; char c;
-
-		for (int i = 0; i < route.length(); i++)
-		{
-			c = route.at(i);
-			j = atoi(&c);
-			system("cls");
-			startx = startx + dx[j];
-			starty = starty + dy[j];
-			for (int i = 0; i < n; i++)
-			{
-				for (int j = 0; j < m; j++)
-				{
-					map[i][j] = '.';
-					map[startx][starty] = 'S';
-					map[endx][endy] = 'E';
-					cout << map[i][j];
-				}
-				cout << endl;
-			}
-
-			Sleep(100);
-		}
-	}
-	getchar();
-	return 0;
 }
