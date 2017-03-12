@@ -170,3 +170,62 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 	}
 	return ""; // no route found
 }
+
+void SearchGraph()
+{
+    int startx = 1;
+    int starty = 1;
+    int endx = 19;
+    int endy = 19;
+
+    // create empty map
+    for(int y=0;y<m;y++)
+    {
+        for(int x=0;x<n;x++) map[x][y]=0;
+    }
+
+    // fillout the map matrix with a '+' pattern
+    for (int y = 1; y < 18; y++)
+        {
+            for (int x = 5; x < 6; x++)
+            {
+                map[x][y] = 1;
+            }
+        }
+
+    string route=pathFind(startx, starty, endx, endy);
+
+    // follow the route on the map and display it
+    if(route.length()>0)
+    {
+        int j; char c;
+        for (int i = 0; i < route.length(); i++)
+		{
+			c = route.at(i);
+			j = atoi(&c);
+			system("cls");
+			startx = startx + dx[j];
+			starty = starty + dy[j];
+			for (int y = 0; y < n; y++)
+			{
+				for (int x = 0; x < m; x++)
+				{
+					map[x][y] = '.';
+					for (int y = 1; y < 18; y++)
+                    {
+                        for (int x = 5; x < 6; x++)
+                        {
+                            map[x][y] = 'W';
+                        }
+                    }
+					map[startx][starty] = 'S';
+					map[endx][endy] = 'E';
+					cout << map[x][y];
+				}
+				cout << endl;
+			}
+
+			Sleep(100);
+		}
+    }
+}
