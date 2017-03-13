@@ -1,3 +1,6 @@
+#ifndef ROGUELIKE_DATABASE_H
+#define ROGUELIKE_DATABASE_H
+
 #include <iostream>
 #include <string>
 using namespace std;
@@ -19,3 +22,4 @@ public:
 	void set_coY(int id, int coY);
 	void new_entry(string name, int score, int dungeon, int coX, int coY);
 };
+#endif

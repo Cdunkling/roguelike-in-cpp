@@ -1,3 +1,6 @@
+#ifndef ROGUELIKE_INVENTORY_H
+#define ROGUELIKE_INVENTORY_H
+
 #include <iostream>
 #include <string>
 #include <array>
@@ -13,3 +16,4 @@ public:
 	void ShowInventory();
 	void Get(string name);
 };
+#endif

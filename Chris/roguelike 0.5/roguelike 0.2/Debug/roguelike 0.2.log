@@ -1,2 +1,17 @@
-﻿  roguelike 0.2.vcxproj -> C:\Users\Chris\Documents\Visual Studio 2017\Projects\cpprougelike\roguelike 0.3\Debug\roguelike 0.2.exe
-  roguelike 0.2.vcxproj -> C:\Users\Chris\Documents\Visual Studio 2017\Projects\cpprougelike\roguelike 0.3\Debug\roguelike 0.2.pdb (Partial PDB)
+﻿  roguelike0.2.cpp
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(43): warning C4018: '<': signed/unsigned mismatch
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(45): warning C4018: '<': signed/unsigned mismatch
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(90): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(98): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(131): warning C4018: '<': signed/unsigned mismatch
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(133): warning C4018: '<': signed/unsigned mismatch
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(280): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(281): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(282): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(412): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(413): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(414): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(334): warning C4101: 'y': unreferenced local variable
+c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\roguelike0.2.cpp(333): warning C4101: 'x': unreferenced local variable
+  roguelike 0.2.vcxproj -> C:\Users\Chris\Documents\GitHub\roguelike-in-cpp\Chris\roguelike 0.5\Debug\roguelike 0.2.exe
+  roguelike 0.2.vcxproj -> C:\Users\Chris\Documents\GitHub\roguelike-in-cpp\Chris\roguelike 0.5\Debug\roguelike 0.2.pdb (Partial PDB)

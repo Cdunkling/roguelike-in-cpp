@@ -1,3 +1,6 @@
+#ifndef ROGUELIKE_CLASSES_H
+#define ROGUELIKE_CLASSES_H
+
 #include "stdafx.h"
 #include <conio.h>
 #include<iostream>
@@ -91,3 +94,4 @@ public:
 	int getdamage();
 	void init(array<int, 2> pos,int level);
 };
+#endif //ROGUELIKE_CLASSES_H

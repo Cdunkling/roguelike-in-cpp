@@ -1,3 +1,6 @@
+//===============================================================================================================================================
+// rougelike.cpp contains the main functions for the program as well as the main method.
+//===============================================================================================================================================
 #include "stdafx.h"
 #include <conio.h>
 #include<iostream>
@@ -10,6 +13,7 @@
 #include "classes.h"
 #include "inventory.h"
 #include "database.h"
+#include "pathfinding.h"
 #include <stdio.h>  
 #include <stdlib.h>  
 #include <time.h>  
@@ -22,7 +26,7 @@ static player p1;
 static inventory inv;
 static Database playerDB;
 
-
+//searches for free cells in the grid
 vector<array<int, 2>> getfree()
 {
 	vector<array<int, 2>>freespaces;
@@ -50,6 +54,7 @@ vector<array<int, 2>> getfree()
 	}
 	return freespaces;
 }
+//initialises the map and player.
 void setup(int floor, array<int, 2> pos)
 {
 	inv.init();
@@ -96,12 +101,14 @@ void setup(int floor, array<int, 2> pos)
 	
 
 }
+//get text color and style
 WORD GetConsoleTextAttribute(HANDLE hCon)
 {
 	CONSOLE_SCREEN_BUFFER_INFO con_info;
 	GetConsoleScreenBufferInfo(hCon, &con_info);
 	return con_info.wAttributes;
 }
+//updates player stats and enemy placements
 void update(array<int, 2>  pos)
 {
 	while (true)
@@ -186,6 +193,7 @@ void update(array<int, 2>  pos)
 		cout << '\n';
 	}
 }
+//check space is free
 bool nocollision(array<int, 2> nextstep,char nextlevelstep)
 {
 	for (enemy test : enemylist)
@@ -220,7 +228,7 @@ bool nocollision(array<int, 2> nextstep,char nextlevelstep)
 		}
 		i++;
 	}
-	if (nextlevelstep == '-' || nextlevelstep == '|')
+	if (nextlevelstep == '#')
 	{
 		return false;
 	}
@@ -229,6 +237,47 @@ bool nocollision(array<int, 2> nextstep,char nextlevelstep)
 		return true;
 	}
 }
+/*
+bool enemynocollision(array<int, 2> nextstep, char nextlevelstep)
+{
+	for (enemy test : enemylist)
+	{
+		if (nextstep == test.getpos() && test.isdead() == false)
+		{
+			return false;
+		}
+	}
+	int i = 0;
+	for (item test : itemlist)
+	{
+		if (nextstep == test.getpos() && test.itemgot() == true)
+		{
+
+			return false;
+		}
+		i++;
+	}
+	i = 0;
+	for (weapon test : weaponlist)
+	{
+		if (nextstep == test.getpos() && test.itemgot() == true)
+		{
+
+			return false;
+		}
+		i++;
+	}
+	if (nextlevelstep == '#'|| nextlevelstep == '+')
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+*/
+//enemy gets distance from player and chooses whether to attack or move
 void enemymove(array<int,2>playerpos)
 {
 	for (enemy test : enemylist)
@@ -249,6 +298,11 @@ void enemymove(array<int,2>playerpos)
 				exit(0);
 			}
 		}
+		/*else if (distance > 2 && test.isdead() == false)
+		{
+			test.setpos(search(p1.getpos(),test.getpos(),level)[1].get_position());
+		}
+		*/
 	}
 }
 int main()
@@ -256,6 +310,7 @@ int main()
 	cout << "Welcome to Exodeath" << endl << "1.Start New Game" << endl << "2. Load Game" << endl;
 	string choice;
 	cin >> choice;
+	//new game
 	if (choice == "1")
 	{
 		string name;
@@ -265,6 +320,7 @@ int main()
 		playerDB.new_entry(name, 0, 1, 3, 30);
 		setup(1, { 3, 30 });
 	}
+	//load game
 	else if (choice == "2")
 	{
 		string name;
@@ -287,8 +343,9 @@ int main()
 	{
 
 		cin >> dir;
-		system("CLS");
+		system("CLS");//clear screen
 		char nextstep;
+		//checks which button was pressed and whether there are obstacles in the way
 		if (dir == "a")
 		{
 			nextstep = level[p1.getpos()[0]][p1.getpos()[1] - 1];
@@ -354,6 +411,7 @@ int main()
 				}
 			}
 		}
+		//attack enemy if they are in range
 		if (dir == "f")
 		{
 			int i = 0;
@@ -382,10 +440,11 @@ int main()
 				cout << "no enemy in range" << endl;
 			}
 		}
+		//move to next floor if tile is stairs
 		if (dir == ">")
 		{
 			char pos = level[p1.getpos()[0]][p1.getpos()[1]];
-			if (pos == '#')
+			if (pos == '0')
 			{
 				system("cls");
 				setup(2, { 1, 1 });
@@ -397,11 +456,13 @@ int main()
 			update(p1.getpos());
 			cout << "\n" << "\n";
 		}
+		//open inventory
 		if (dir == "i")
 		{
 			inv.ShowInventory();
 			cout << endl << endl;
 		}
+		//show stats
 		nextstep = ' ';
 		cout << "x: "<<p1.getpos()[0] << "  " << "y: "<<p1.getpos()[1]<< "\n";
 		cout << "level: " << p1.getlevel() << "\n";
