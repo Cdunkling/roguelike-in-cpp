@@ -8,13 +8,11 @@
 #include <string>
 #include <Windows.h>
 #include <vector>
+#include "grid.h"
 using namespace std;
 
 
 //assigns x and y of grid.
-const int n = 20;
-const int m = 20;
-static char map[n][m];
 static int closed_nodes_map[n][m];
 static int open_nodes_map[n][m];
 static int dir_map[n][m];
@@ -99,7 +97,7 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 		open_nodes_map[x][y] = 0;
 		closed_nodes_map[x][y] = 1;
 		//Check if the new node matches the goal node.
-		if (x == xFinish && y == yFinish)
+		if (x == xFinish-dx[dir] && y == yFinish-dy[dir])
 		{
 			// generate the path from finish to start
 			// by following the directions
@@ -121,7 +119,7 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 		{
 			xdx = x + dx[i]; ydy = y + dy[i];
 
-			if (!(xdx<0 || xdx>n - 1 || ydy<0 || ydy>m - 1 || map[xdx][ydy] == 1
+			if (!(xdx<0 || xdx>n - 1 || ydy<0 || ydy>m - 1 || mapArray2d[xdx][ydy] == "+" || mapArray2d[xdx][ydy] == "W"
 				|| closed_nodes_map[xdx][ydy] == 1))
 			{
 				// generate a child node
@@ -171,61 +169,47 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 	return ""; // no route found
 }
 
-void SearchGraph()
+void doAlgorithm()
 {
-    int startx = 1;
-    int starty = 1;
-    int endx = 19;
-    int endy = 19;
+        int startX = 3;
+    int startY = 3;
+    int endX = 18;
+    int endY = 18;
+    int oldX = 3;
+    int oldY = 3;
+        MapGenerator map1;
+    map1.createMap(20, 20 , 5);
+//    map1.printMap();
+//    map1.saveToTxt("map2.txt");
+    map1.saveToTxt("map2.txt");
+    map1.TxtFileToArray("map2.txt");
 
-    // create empty map
-    for(int y=0;y<m;y++)
-    {
-        for(int x=0;x<n;x++) map[x][y]=0;
-    }
-
-    // fillout the map matrix with a '+' pattern
-    for (int y = 1; y < 18; y++)
-        {
-            for (int x = 5; x < 6; x++)
-            {
-                map[x][y] = 1;
-            }
-        }
-
-    string route=pathFind(startx, starty, endx, endy);
-
-    // follow the route on the map and display it
-    if(route.length()>0)
+    string route = pathFind(startX, startY, endX, endY);
+    if (route.length()>0)
     {
         int j; char c;
-        for (int i = 0; i < route.length(); i++)
-		{
-			c = route.at(i);
-			j = atoi(&c);
-			system("cls");
-			startx = startx + dx[j];
-			starty = starty + dy[j];
-			for (int y = 0; y < n; y++)
-			{
-				for (int x = 0; x < m; x++)
-				{
-					map[x][y] = '.';
-					for (int y = 1; y < 18; y++)
-                    {
-                        for (int x = 5; x < 6; x++)
-                        {
-                            map[x][y] = 'W';
-                        }
-                    }
-					map[startx][starty] = 'S';
-					map[endx][endy] = 'E';
-					cout << map[x][y];
-				}
-				cout << endl;
-			}
-
-			Sleep(100);
-		}
+        for (int i = 0; i<route.length(); i++)
+        {
+            c = route.at(i);
+            j = atoi(&c);
+            system("cls");
+            startX = startX + dx[j];
+            startY = startY + dy[j];
+            oldX = startX - dx[j];
+            oldY = startY - dy[j];
+            map1.print2DArray();
+            for (int y = 0; y < 20; y++)
+            {
+                for(int x = 0; x < 20; x++)
+                {
+                    mapArray2d[startX][startY] = "S";
+                    mapArray2d[oldX][oldY] = ".";
+                    mapArray2d[endX][endY] = "E";
+                    cout << mapArray2d[y][x];
+                }
+                cout << endl;
+            }
+            Sleep(100);
+        }
     }
 }
