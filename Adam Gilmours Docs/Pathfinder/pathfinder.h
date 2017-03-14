@@ -171,8 +171,8 @@ string pathFind(const int & xStart, const int & yStart, const int & xFinish, con
 
 void doAlgorithm()
 {
-        int startX = 3;
-    int startY = 3;
+    int startX = 2;
+    int startY = 2;
     int endX = 18;
     int endY = 18;
     int oldX = 3;
@@ -210,6 +210,18 @@ void doAlgorithm()
                 cout << endl;
             }
             Sleep(100);
+        }
+    }
+    if (route=="")
+    {
+        for(int y = 0; y < 20; y++)
+        {
+            for(int x = 0; x < 20; x++)
+            {
+                mapArray2d[startX][startY] = "S";
+                mapArray2d[x][y];
+                cout << mapArray2d[y][x];
+            }
         }
     }
 }
