@@ -1,10 +1,8 @@
-#include "pathfinder.h"
-#include <iostream>
-using namespace std;
+#include "algorithm.h"
 
 int main()
 {
-    SearchGraph();
+    doAlgorithm();
     cin.get();
     return 0;
 }
