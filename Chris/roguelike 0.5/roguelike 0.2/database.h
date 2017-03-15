@@ -9,17 +9,27 @@ class Database {
 private:
 	string dbName;
 public:
-	string get_name(int id);
-	int get_score(int id);
-	int get_dungeon_level(int id);
-	int get_coX(int id);
-	int get_coY(int id);
-	void set_dbname(string name);
-	void set_name(int id, string name);
-	void set_score(int id, int score);
-	void set_dungeon(int id, int dungeon);
-	void set_coX(int id, int coX);
-	void set_coY(int id, int coY);
-	void new_entry(string name, int score, int dungeon, int coX, int coY);
+	int getScore(int id);
+	int getDungeonID(int id);
+	int getPlayerXPos(int id);
+	int getPlayerYPos(int id);
+	int getHP(int id);
+	string getMapFileName(int id);
+	int getMapID(string fileName);
+	string getDBName();
+	void setDBName(string name);
+	void setHP(int id, int xPos);
+	void setScore(int id, int score);
+	void SetDungeonID(int id, int dungeon);
+	void setPlayerXPos(int id, int coX);
+	void setPlayerYPos(int id, int coY);
+	void addNewMap(string fileName);
+	int getXPos(int id);
+	int getYPos(int id);
+	void setNPCXPos(int id, int xPos);
+	void setNPCYPos(int id, int yPos);
+	void printMapContents();
+	void printPlayerContents();
+	void printNPCContents();
 };
 #endif

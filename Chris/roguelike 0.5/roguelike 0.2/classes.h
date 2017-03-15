@@ -1,3 +1,5 @@
+
+
 #ifndef ROGUELIKE_CLASSES_H
 #define ROGUELIKE_CLASSES_H
 

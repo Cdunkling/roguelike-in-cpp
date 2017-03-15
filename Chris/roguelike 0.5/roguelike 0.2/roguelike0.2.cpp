@@ -63,6 +63,7 @@ void setup(int floor, array<int, 2> pos)
 	{
 		file.open("map1.txt");
 		p1.init(10, pos, 2,2, 0, 1);
+		playerDB.setHP(1, 10);
 	}
 	if (floor == 2)
 	{
@@ -119,6 +120,7 @@ void update(array<int, 2>  pos)
 			p1.levelup();
 			cout << "LEVEL UP!!!" << endl;
 			cout << "level increased to " << p1.getlevel() << endl;
+			playerDB.setHP(1, p1.gethp());
 		}
 		else
 		{
@@ -181,7 +183,7 @@ void update(array<int, 2>  pos)
 			}
 			else
 			{
-				if (enemyplaced == false && itemplaced==false)
+				if (enemyplaced == false && itemplaced==false && weaponplaced == false)
 				{
 				cout << level[i][j];
 			}
@@ -237,46 +239,7 @@ bool nocollision(array<int, 2> nextstep,char nextlevelstep)
 		return true;
 	}
 }
-/*
-bool enemynocollision(array<int, 2> nextstep, char nextlevelstep)
-{
-	for (enemy test : enemylist)
-	{
-		if (nextstep == test.getpos() && test.isdead() == false)
-		{
-			return false;
-		}
-	}
-	int i = 0;
-	for (item test : itemlist)
-	{
-		if (nextstep == test.getpos() && test.itemgot() == true)
-		{
 
-			return false;
-		}
-		i++;
-	}
-	i = 0;
-	for (weapon test : weaponlist)
-	{
-		if (nextstep == test.getpos() && test.itemgot() == true)
-		{
-
-			return false;
-		}
-		i++;
-	}
-	if (nextlevelstep == '#'|| nextlevelstep == '+')
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
-}
-*/
 //enemy gets distance from player and chooses whether to attack or move
 void enemymove(array<int,2>playerpos)
 {
@@ -310,14 +273,14 @@ int main()
 	cout << "Welcome to Exodeath" << endl << "1.Start New Game" << endl << "2. Load Game" << endl;
 	string choice;
 	cin >> choice;
+	playerDB.setDBName("playerdata.db");
 	//new game
 	if (choice == "1")
 	{
 		string name;
 		cout << "enter name: ";
 		cin >> name;
-		playerDB.set_dbname("playerdata.db");
-		playerDB.new_entry(name, 0, 1, 3, 30);
+		playerDB.SetDungeonID(1,1);
 		setup(1, { 3, 30 });
 	}
 	//load game
@@ -326,9 +289,7 @@ int main()
 		string name;
 		cout << "enter name: ";
 		cin >> name;
-		playerDB.set_dbname("playerdata.db");
-		playerDB.new_entry(name, 0, 1, 3, 30);
-		setup(1, { 3, 30 });
+		setup(playerDB.getDungeonID(1), { playerDB.getPlayerXPos(1) , playerDB.getPlayerYPos(1) });
 	}
 	else
 	{
@@ -464,11 +425,14 @@ int main()
 		}
 		//show stats
 		nextstep = ' ';
-		cout << "x: "<<p1.getpos()[0] << "  " << "y: "<<p1.getpos()[1]<< "\n";
+		cout << "x: " << p1.getpos()[0] << "  " << "y: " << p1.getpos()[1] << "\n";
 		cout << "level: " << p1.getlevel() << "\n";
 		cout << "exp: " << p1.getexp() << "\n";
-		cout << "health: " << p1.gethp() <<  "\n";
+		cout << "health: " << p1.gethp() << "\n";
 		cout << "damage: " << p1.attack() << "\n";
+		playerDB.setHP(1, p1.gethp());
+		playerDB.setPlayerXPos(1, p1.getpos()[0]);
+		playerDB.setPlayerYPos(1, p1.getpos()[1]);
 		enemymove(p1.getpos());
 		update(p1.getpos());
 		}

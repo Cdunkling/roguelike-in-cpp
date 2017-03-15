@@ -1,3 +1,6 @@
+//*******************************************************************//
+//Contains all the main classes used in roguelike main file          //
+//*******************************************************************//
 #include "classes.h"
 using namespace std;
 
