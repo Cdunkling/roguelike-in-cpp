@@ -11,6 +11,9 @@ class Database{
 
     //Player Getter Methods
 
+    //Get the name of the player
+    //Required input: playerID
+    
     string getPlayerName(int id){
         try{
             sqlite::sqlite db(dbName);
@@ -21,11 +24,14 @@ class Database{
             cur->bind(1, id);
             cur->step();
             return cur->get_text(0);
-        }catch(sqlite::exception e){
+        }catch(sqlite::exception e){ 
             cerr<< e.what() << endl;
         }
     }
-
+    
+    //Get the xPos of the player
+    //Required input: playerID
+    //
     int getPlayerXPos(int id){
         try{
             sqlite::sqlite db(dbName);
@@ -40,6 +46,10 @@ class Database{
             cerr<< e.what() << endl;
         }
     }
+    
+    //Get the yPos of the player
+    //Required input: playerID
+    
     int getPlayerYPos(int id){
         try{
             sqlite::sqlite db(dbName);
@@ -54,6 +64,9 @@ class Database{
             cerr<< e.what() << endl;
         }
     }
+    //Get the dungeonLevel of the player
+    //Required input: playerID
+    
     int getPlayerDungeonLevel(int id){
         try{
             sqlite::sqlite db(dbName);
@@ -68,6 +81,9 @@ class Database{
             cerr<< e.what() << endl;
         }
     }
+    //Get the hp level of the player
+    //Required input: playerID
+    
     int getPlayerHP(int id){
         try{
             sqlite::sqlite db(dbName);
@@ -82,6 +98,9 @@ class Database{
             cerr<< e.what() << endl;
         }
     }
+    //Get the score of the player
+    //Required input: playerID
+    
     int getPlayerScore(int id){
         try{
             sqlite::sqlite db(dbName);
@@ -97,6 +116,9 @@ class Database{
         }
     }
 
+    //Get the itemID of the player
+    //Required input: playerID
+    
     int getPlayerItemID(int id){
         try{
             sqlite::sqlite db(dbName);
@@ -113,7 +135,10 @@ class Database{
     }
 
     //Player Setter Methods
-
+    
+    //Add a new player to the player table
+    //Required input: name, xPos, yPos, dungeonLevel, hp, score, equippedItem
+    
     void addPlayerEntry(string name, int xPos, int yPos, int dungeonLevel, int hp, int score, int equippedItem){
         try{
             sqlite::sqlite db(dbName);
@@ -133,6 +158,8 @@ class Database{
             cerr<< e.what() << endl;
         }
     }
+    //Set the name of an existing player
+    //Required input: playerID, new name
     void setPlayerName(int id, string name)
     {
         try{
@@ -143,11 +170,13 @@ class Database{
             cur->bind(1, name);
             cur->bind(2, id);
             cur->step();
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
+    //Set the xPos of an existing player
+    //Required input: playerID, new xPos
     void setPlayerXPos(int id, int xPos)
     {
         try{
@@ -158,12 +187,14 @@ class Database{
             cur->bind(1, xPos);
             cur->bind(2, id);
             cur->step();
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
-
+    
+    //Set the yPos of an existing player
+    //Required input: playerID, new yPos
     void setPlayerYPos(int id, int yPos)
     {
         try{
@@ -174,12 +205,13 @@ class Database{
             cur->bind(1, yPos);
             cur->bind(2, id);
             cur->step();
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
-
+    //Set the dungeonLevel of an existing player
+    //Required input: playerID, new dungeonLevel
     void playerSetDungeonLevel(int id, int xPos)
     {
         try{
@@ -190,12 +222,13 @@ class Database{
             cur->bind(1, xPos);
             cur->bind(2, id);
             cur->step();
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
-
+    //Set the hp level of an existing player
+    //Required input: playerID, new hp level
     void setHP(int id, int xPos)
     {
         try{
@@ -206,11 +239,14 @@ class Database{
             cur->bind(1, xPos);
             cur->bind(2, id);
             cur->step();
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
+    
+    //Set the score of an existing player
+    //Required input: playerID, new score
 
     void setScore(int id, int score)
     {
@@ -222,14 +258,16 @@ class Database{
             cur->bind(1, score);
             cur->bind(2, id);
             cur->step();
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
 
     //Getter methods for map table
-
+    
+    //Get the fileName of a map
+    //Required input: mapID
     string getMapFileName(int id){
         try{
             sqlite::sqlite db(dbName);
@@ -239,11 +277,14 @@ class Database{
             cur->bind(1, id);
             cur->step();
             return cur->get_text(0);
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
+    //Get the ID of a map 
+    //Required input: fileName
+
     int getMapID(string fileName){
         try{
             sqlite::sqlite db(dbName);
@@ -259,6 +300,9 @@ class Database{
     }
 
     //Setter methods for map table
+    
+    //Add a new map to the database
+    //Required input: fileName
     void addNewMapEntry(string fileName){
         try{
             sqlite::sqlite db(dbName);
@@ -267,13 +311,33 @@ class Database{
             cur->prepare();
             cur->bind(1, fileName);
             cur->step();
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
+        {
+            std::cerr << e.what() << std::endl;
+        }
+    }
+    
+    //Change the fileName of a Map
+    //Required input: mapID, new fileName
+     void setMapName(int id, string fileName){
+        try{
+            sqlite::sqlite db(dbName);
+            auto cur = db.get_statement();
+            cur->set_sql("UPDATE Map set fileName = ? WHERE dungeonID = ?");
+            cur->prepare();
+            cur->bind(1, fileName);
+            cur->bind(1, id);
+            cur->step();
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
 
     //Getter methods for NPC table
+    
+    //Get the xPos of an NPC
+    //Required input: npcID
     int getNPCXPos(int id){
         try{
             sqlite::sqlite db(dbName);
@@ -288,6 +352,8 @@ class Database{
             cerr<< e.what() << endl;
         }
     }
+    //Get the yPos of an NPC
+    //Required input: npcID
     int getNPCYPos(int id){
         try{
             sqlite::sqlite db(dbName);
@@ -302,7 +368,8 @@ class Database{
             cerr<< e.what() << endl;
         }
     }
-
+    //Get the hp level of an NPC
+    //Required input: npcID
     int getNPCHp(int id){
         try{
             sqlite::sqlite db(dbName);
@@ -319,7 +386,9 @@ class Database{
     }
 
     // NPC setter methods
-
+    
+    //Add a new NPC to the database
+    //Required input: xPos, yPos, hp level
     void addNPCEntry(int xPos, int yPos, int hp){
         try{
             sqlite::sqlite db(dbName);
@@ -335,6 +404,8 @@ class Database{
             cerr<< e.what() << endl;
         }
     }
+    //Set the xPos of an NPC
+    //Required input: npcID, new xPos
     void setNPCXPos(int id, int xPos)
     {
         try{
@@ -345,12 +416,14 @@ class Database{
             cur->bind(1, xPos);
             cur->bind(2, id);
             cur->step();
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
-
+    
+    //Set the yPos of an NPC
+    //Required input: npcID, new yPos
     void setNPCYPos(int id, int yPos)
     {
         try{
@@ -361,11 +434,13 @@ class Database{
             cur->bind(1, yPos);
             cur->bind(2, id);
             cur->step();
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
+    //Set the hp level of an NPC
+    //Required input: npcID, new hp level
 
      void setNPCHp(int id, int hp)
     {
@@ -377,14 +452,15 @@ class Database{
             cur->bind(1, hp);
             cur->bind(2, id);
             cur->step();
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
 
     //Items getter methods
-
+    //Get the name of an Item
+    //Required input: itemID
     string getItemName(int id){
         try{
             sqlite::sqlite db(dbName);
@@ -399,6 +475,9 @@ class Database{
             cerr<< e.what() << endl;
         }
     }
+    
+    //Get the damageLevel of an Item
+    //Required input: itemID
 
     int getItemDamageLevel(int id){
         try{
@@ -416,7 +495,9 @@ class Database{
     }
 
     //Items setter methods
-
+    
+    //Add a new item to the database
+    //Required input: name of item, damageLevel
     void addItemEntry(string name, int damageLevel){
         try{
             sqlite::sqlite db(dbName);
@@ -431,7 +512,9 @@ class Database{
             cerr<< e.what() << endl;
         }
     }
-
+    
+    //Change name of an Item
+    //Required input: itemID, new item name
     void setItemName(int id, string itemName)
     {
         try{
@@ -442,12 +525,14 @@ class Database{
             cur->bind(1, itemName);
             cur->bind(2, id);
             cur->step();
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
-
+    //Change the damageLevel of an Item
+    //Required input: itemID, damageLevel
+    
     void setItemDamageLevel(int id, int damageLevel){
         try{
             sqlite::sqlite db(dbName);
@@ -457,7 +542,7 @@ class Database{
             cur->bind(1, damageLevel);
             cur->bind(2, id);
             cur->step();
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
@@ -466,6 +551,7 @@ class Database{
 
 
     //Testing methods
+    //Prints the contents of the map table
     void printMapContents(){
         try{
             sqlite::sqlite db(dbName);
@@ -476,12 +562,13 @@ class Database{
             while (cur->step()){
                 cout << cur->get_int(0) << " " << cur->get_text(1) << endl;
             }
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
-
+    
+    //Prints the contents of the player table
     void printPlayerContents(){
         try{
             sqlite::sqlite db(dbName);
@@ -491,13 +578,14 @@ class Database{
             cout << "PLayer Table" << endl;
             while (cur->step()){
                 cout << "ID: " << cur->get_int(0) << "Name: " << cur->get_text(1) << " XPos: " << cur->get_int(2) << " YPos: "<< cur->get_int(3);
-                cout << " DungeonID: " << cur->get_int(4) << " HP: " << cur->get_int(5) << " Score: " << cur->get_int(6)<< " Item ID:" << cur->get_int(7) << endl;
+                cout << " DungeonID: " << cur->get_int(4) << " HP: " << cur->get_int(5) << " Score: " << cur->get_int(6)<< " Item ID: " << cur->get_int(7) << endl;
             }
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
+    //Prints the contents of the NPC table
     void printNPCContents(){
         try{
             sqlite::sqlite db(dbName);
@@ -508,38 +596,25 @@ class Database{
             while (cur->step()){
                 cout << "ID: " << cur-> get_int(0) << " xPos: " << cur->get_int(1) << " yPos: " << cur->get_int(2) <<endl;
             }
-        } catch( sqlite::exception e )      // catch all sql issues
+        } catch( sqlite::exception e )       
         {
             std::cerr << e.what() << std::endl;
         }
     }
     
-    void resetTable(string table){
-        try{
-            sqlite::sqlite db(dbName);
-            auto cur = db.get_statement();
-            //SQL Statement
-            cur->set_sql("DELETE FROM ?");
-            cur->prepare();
-            cur->bind(1, table);
-            cur->step();
-            cur->set_sql("delete from sqlite_sequence where name = ?");
-            cur->prepare();
-            cur->bind(1, table);
-            cur->step();
-        }catch(sqlite::exception e){
-            cerr<< e.what() << endl;
-        }
-    }
-
+    //Returns the name of the DB
     string getDBName(){
         return dbName;
     }
 
     private:
+    //Variable used to store the name of the database
     string dbName;
 
 };
+
+//Function that tests the player table
+// ** EMPTY DATABASE REQUIRED**
 
 void testPlayerTable(){
     Database db("RougelikeV5.db");
@@ -593,6 +668,8 @@ void testPlayerTable(){
     }
 }
 
+//Function that tests the Items table
+//// ** EMPTY DATABASE REQUIRED**
 void testItemsTable(){
     Database db("RougelikeV5.db");
     string itemNames[3] = {"Pickaxe", "Shovel", "Laser"};
@@ -624,10 +701,12 @@ void testItemsTable(){
         }
     }
 }
-
+//Function that tests the map table
+//// ** EMPTY DATABASE REQUIRED**
 void testMapTable(){
     Database db ("RougelikeV5.db");
     string mapNames[3] = {"Map1.txt", "Map2.txt", "Map3.txt"};
+    string newMapNames[3] = {"testMap1.txt", "testMap2.txt", "testMap3.txt"};
     for(int i = 0; i < 3; i++){
         db.addNewMapEntry(mapNames[i]);
         if(i == 0){
@@ -651,7 +730,8 @@ void testMapTable(){
         }
     }
 }
-
+//function that tests the NPC table
+//// ** EMPTY DATABASE REQUIRED**
 void testNPCTable(){
     Database db ("RougelikeV5.db");
     int xPos[3] = {12,54,90000};
