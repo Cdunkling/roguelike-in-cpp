@@ -41,7 +41,6 @@ public:
             }
         }
 
-
         //randomly places three vertical walls or length 3
         int i = 0;
         while(i < 3){
@@ -69,9 +68,6 @@ public:
                 j++;
             }
         }
-
-
-
     }
 
     //print the map to the console
@@ -136,10 +132,10 @@ public:
 int main()
 {
     MapGenerator map1;
-    map1.createMap(20, 20 , 5);
-//    map1.printMap();
-//    map1.saveToTxt("map2.txt");
-    map1.TxtFileToArray("map2.txt");
+    map1.createMap(20, 20, 5);
+    map1.printMap();
+    map1.saveToTxt("map1.txt");
+    map1.TxtFileToArray("map1.txt");
     map1.print2DArray();
     return 0;
 }
