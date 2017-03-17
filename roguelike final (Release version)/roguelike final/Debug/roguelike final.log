@@ -1,0 +1,17 @@
+﻿  roguelike final.cpp
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(55): warning C4018: '<': signed/unsigned mismatch
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(57): warning C4018: '<': signed/unsigned mismatch
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(121): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(128): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(169): warning C4018: '<': signed/unsigned mismatch
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(171): warning C4018: '<': signed/unsigned mismatch
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(289): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(290): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(291): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(434): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(435): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(436): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(349): warning C4101: 'y': unreferenced local variable
+c:\users\chris\documents\visual studio 2017\projects\roguelike final\roguelike final\roguelike final.cpp(348): warning C4101: 'x': unreferenced local variable
+  roguelike final.vcxproj -> c:\users\chris\documents\visual studio 2017\Projects\roguelike final\Debug\roguelike final.exe
+  roguelike final.vcxproj -> c:\users\chris\documents\visual studio 2017\Projects\roguelike final\Debug\roguelike final.pdb (Partial PDB)

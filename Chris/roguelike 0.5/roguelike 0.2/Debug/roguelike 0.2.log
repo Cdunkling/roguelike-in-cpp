@@ -1,4 +1,0 @@
-﻿  database.cpp
-c:\users\chris\documents\github\roguelike-in-cpp\chris\roguelike 0.5\roguelike 0.2\libsqlite.hpp(210): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-  roguelike 0.2.vcxproj -> C:\Users\Chris\Documents\GitHub\roguelike-in-cpp\Chris\roguelike 0.5\Debug\roguelike 0.2.exe
-  roguelike 0.2.vcxproj -> C:\Users\Chris\Documents\GitHub\roguelike-in-cpp\Chris\roguelike 0.5\Debug\roguelike 0.2.pdb (Partial PDB)
