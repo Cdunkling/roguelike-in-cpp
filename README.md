@@ -1,2 +1,2 @@
 # cpprougelike
-The program and documentation for the rouge-like in c++
+The program and documentation for the rogue-like in c++
